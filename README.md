@@ -12,7 +12,7 @@ This repository contains my solutions for algorithm challenges on [Baekjoon Onli
 Baekjoon Online Judge is a popular platform where programmers from around the world challenge themselves with diverse algorithm problems. In this repository, you will find:
 - Solutions: Code implementations for various problems.
 - Explanations: Detailed reasoning and commentary on the approaches used.
-- Multiple Languages: Solutions in languages such as Python, C++, Java, etc.
+- Multiple Languages: Solutions in languages such as Python, C, etc.
 
 ## Problem-Solving Approach
 For each problem, I typically follow these steps:
