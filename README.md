@@ -1,4 +1,4 @@
-# Baekjoon Online Judge Solutions
+# Mugen-Houyou's Baekjoon Online Judge Solutions
 
 This repository contains my solutions for algorithm challenges on [Baekjoon Online Judge](https://www.acmicpc.net/), a coding and algorithm practice site akin to LeetCode. The purpose of this repository is to document my problem-solving journey, share various approaches, and help others learn different techniques to tackle complex problems.
 
