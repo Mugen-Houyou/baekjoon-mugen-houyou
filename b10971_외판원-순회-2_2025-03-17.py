@@ -1,4 +1,4 @@
-# 참고: 다이나믹 프로그래밍을 사용하지 않은 코드입니다.
+# 참고: naive approach입니다.
 
 import itertools
 import sys
