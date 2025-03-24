@@ -22,7 +22,7 @@ def binary_search(target_num):
 
     while low <= high:
         mid = (low+high)//2
-        if database[mid] == target_num: return mid
+        if  database[mid] == target_num: return mid
         elif database[mid] < target_num: low=mid+1
         elif database[mid] > target_num: high=mid-1
     
