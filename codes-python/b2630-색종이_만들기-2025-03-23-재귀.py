@@ -25,4 +25,4 @@ def count_paper(paper_size:int,start_row,start_col,end_row,end_col) -> int:
         count_paper(coord_forward, start_row+coord_forward, start_col+coord_forward, end_row, end_col)
 
 count_paper(size,0,0,size-1,size-1)
-print(result[0],result[1],sep="\n")
+print(*result , sep="\n")
