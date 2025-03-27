@@ -8,7 +8,7 @@ KOI 사냥터에는 N 마리의 동물들이 각각 특정한 위치에 살고 �
 사대의 위치와 동물들의 위치가 주어졌을 때, 잡을 수 있는 동물의 수를 출력하는 프로그램을 작성하시오.
 
 """
-
+from bisect import bisect_left
 import sys
 input = sys.stdin.readline
 
@@ -16,6 +16,11 @@ shooter_count, animal_count, shot_range = map(int,input().split())
 shooter_coords = sorted(map(int,input().split()))
 animal_coords = [[a for a in map(int,input().split())] for _ in range(animal_count)]
 result = 0
+
+def bileft_shooter(shooter_coords, target_x_coord):
+    # target_x_coord가 삽입될 인덱스를 리턴 (즉, 가장 가까운 "오른쪽" 후보의 인덱스)
+    # 例) shooter_coords = [2, 5, 8]이고, target_x_coord = 6 ==> 리턴값은 2, 즉, 값으로 보면 8이 있는 자리를 리턴. 만약 [2, 5, 6, 8]이면 2 리턴 (즉, 정확히 6이 있는 자리)
+    return bisect_left(shooter_coords, target_x_coord)
 
 def binary_search_shooter(shooter_coords, animal_x_coord):
     # 가장 가까운 (듯한) 사냥꾼 검색
