@@ -1,3 +1,5 @@
+from bisect import bisect_left
+from bisect import bisect
 from bisect import bisect_right
 
 def binary_search_find_lower(arr,target_num): 
@@ -46,29 +48,14 @@ def binary_search_find_mid(arr,target_num):
     return mid
 
 def bs_by_bisect(arr,target_num):
-    return bisect_right(arr,target_num)
+    return (bisect_left(arr,target_num), bisect(arr,target_num), bisect_right(arr,target_num))
 
 arr = [10, 20, 50, 66, 123, 214, 333, 444, 555, 777]
 print("----------------------")
-target_num = 9
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
-target_num = 10
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
-target_num = 11
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
-print("----------------------")
 target_num = 49
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
+print("target_num:",target_num, bs_by_bisect(arr,target_num))
 target_num = 50
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
+print("target_num:",target_num, bs_by_bisect(arr,target_num))
 target_num = 51
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
+print("target_num:",target_num, bs_by_bisect(arr,target_num))
 print("----------------------")
-target_num = 776
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
-target_num = 777
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
-target_num = 778
-print(binary_search_find_lower(arr,target_num), bs_by_bisect(arr,target_num))
-print("----------------------")
-
