@@ -3,39 +3,35 @@ from collections import deque
 import sys
 input=sys.stdin.readline
 
-def is_beyond_wall(row, col):
-    global rows_count, cols_count
+def is_within_bounds(row, col):
+    global rows_n, cols_n
+    return (0<=row<rows_n) and (0<=col<cols_n)
 
-    if not (0<=row<rows_count and 0<=col<cols_count):
-        return True
-    
-    return False
-
-def bfs(start_row, start_col, end_row, end_col):
-    global rows_count, cols_count, maze
+def bfs_maze(sr, sc, er, ec): # 시작 row, 시작 col, 끝 row, 끝 col
+    global maze, rows_n, cols_n
 
     dq = deque()
-    path_costs = [[0]*cols_count for _ in range(rows_count)]
-    dq.append((start_row,start_col))
-    path_costs[start_row][start_col] = 1    
+    path_costs = [[0]*cols_n for _ in range(rows_n)]
+    dq.append((sr,sc))
+    path_costs[sr][sc] = 1
 
     while dq:
-        curr_row, curr_col = dq.popleft()
-        if curr_row==end_row and curr_col==end_col: 
-            return path_costs[end_row][end_col]
+        cr, cc = dq.popleft()
+        if cr==er and cc==ec: 
+            return path_costs[er][ec]
 
         # 4방향, 범위내, 조건 맞는가? ==> dq에 삽입.
-        for row_ahead, col_ahead in [(-1,0),(1,0),(0,-1),(0,1)]:
-            next_row, next_col = curr_row+row_ahead, curr_col+col_ahead
-            if (not is_beyond_wall(next_row, next_col)
-                and maze[next_row][next_col]=="1"
-                and path_costs[next_row][next_col]==0
+        for dr, dc in [(-1,0),(1,0),(0,-1),(0,1)]:
+            nr, nc = cr+dr, cc+dc
+            if (is_within_bounds(nr, nc)
+                and maze[nr][nc]=="1"
+                and path_costs[nr][nc]==0
             ):
-                dq.append((next_row, next_col))
-                path_costs[next_row][next_col] = path_costs[curr_row][curr_col]+1
+                dq.append((nr, nc))
+                path_costs[nr][nc] = path_costs[cr][cc]+1
 
 
-rows_count, cols_count = map(int,input().split()) # N, M
-maze = [input().strip() for _ in range(rows_count)]
+rows_n, cols_n = map(int,input().split()) # N, M
+maze = [input().strip() for _ in range(rows_n)]
 
-print(bfs(0,0,rows_count-1,cols_count-1))
+print(bfs_maze(0,0,rows_n-1,cols_n-1))

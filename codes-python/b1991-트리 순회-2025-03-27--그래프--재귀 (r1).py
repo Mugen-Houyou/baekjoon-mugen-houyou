@@ -33,6 +33,8 @@ n = int(input())
 #     root, left, right = input().split()
 #     tree[root] = (left, right)
 tree = {root: (left, right) for root, left, right in (input().split() for _ in range(n))}
+# tree = [[root, [left, right]] for root, left, right in (input().split() for _ in range(n))] 
+# 노드가 숫자가 아니라 알파벳이라... 
 
 # 전위, 중위, 후위 순회 수행 후 결과 출력
 result = []

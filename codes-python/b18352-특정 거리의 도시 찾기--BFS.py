@@ -26,8 +26,4 @@ for _ in range(1, m+1):
     a,b = map(int,input().split())
     graph[a].append(b)
 
-result = [a for a,b in enumerate(bfs()) if b==(k)]
-if result:
-    print(*result, sep="\n")
-else :
-    print(-1)
+print(*([i for i, v in enumerate(bfs()) if v == k] or [-1]), sep="\n")

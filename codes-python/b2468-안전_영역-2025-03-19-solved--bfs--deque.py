@@ -18,11 +18,11 @@ def bfs(height,row,col):
             next_row = current_row+row_step
             next_col = current_col+col_step
             # 방문 조건: 네 방향 / 범위 내 / 미방문 / h보다 높음
-            if 0<=next_row<size \
-                and 0<=next_col<size \
-                and visiteds[next_row][next_col]==0 \
-                and input_arr[next_row][next_col] > height\
-                :
+            if (0<=next_row<size 
+                and 0<=next_col<size
+                and visiteds[next_row][next_col]==0 
+                and input_arr[next_row][next_col] > height
+            ):
                 dq.append((next_row,next_col))
                 visiteds[next_row][next_col]=1
 

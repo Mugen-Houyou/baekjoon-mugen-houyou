@@ -2,47 +2,53 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-def dfs(graph: dict, stk: list):
-    global marked
-    if len(stk)==0: return
+def dfs_recursive(root: int):
+    global graph, visiteds
+    print(root, end=" ")
+    visiteds[root] = True
+
+    for neighbor in sorted(graph[root]):
+        if not visiteds[neighbor]:
+            visiteds[neighbor] = True
+            dfs_recursive(neighbor)
+
+def dfs_iterative(root: int):
+    global graph, visiteds
+    stk = [root]
     
-    popped = stk.pop()
-    print(popped, end=" ")
+    while stk:
+        node = stk.pop()
+        
+        if visiteds[node]: 
+            continue
+
+        visiteds[node] = True
+        print(node, end=" ")
+
+        # 스택에 넣을 때는 "역순으로" 추가
+        for neighbor in sorted(graph[node], reverse=True):
+            if visiteds[neighbor]: 
+                continue
+            stk.append(neighbor)
+
+def bfs(root: int):
+    global graph, visiteds
+    dq = deque([root])
     
-    for cn in graph[popped]:
-        if cn in marked: continue
-        stk.append(cn)
-        marked.add(cn)
+    while dq:
+        node = dq.popleft()
         
-    for i in range(len(graph[popped])):
-        dfs(graph, stk)
+        if visiteds[node]: 
+            continue
 
-        
-def dfs_revised(graph: dict, node: int):
-    global marked
-    print(node, end=" ")
+        visiteds[node] = True
+        print(node, end=" ")
 
-    for neighbor in sorted(graph[node]):
-        if neighbor not in marked:
-            marked.add(neighbor)
-            dfs_revised(graph, neighbor)
-
-
-def bfs(graph: dict, start_node: int):
-    global marked
-    queue = deque([start_node])
-
-    while True:
-        current = queue.popleft()
-        print(current, end=" ")
-        
-        # for neighbor in graph[current]:
-        for neighbor in sorted(graph[current]):
-            if neighbor not in marked:
-                marked.add(neighbor)
-                queue.append(neighbor)
-
-        if len(queue) == 0: break
+        # 이건 큐라 순서대로 추가.
+        for neighbor in sorted(graph[node]):
+            if visiteds[neighbor]: 
+                continue
+            dq.append(neighbor)
 
 
 nodes_count, edges_count, start_node = map(int, input().split())
@@ -53,9 +59,40 @@ for _ in range(edges_count):
     graph[a].append(b)
     graph[b].append(a) # 양방향으로 넣자.
 
-# stk = [1]
-marked = set([start_node])
-dfs_revised(graph, start_node)
+visiteds = [[] for _ in range(nodes_count+1)]
+dfs_iterative(start_node)
 print()
-marked = set([start_node])
-bfs(graph, start_node)
+visiteds = [[] for _ in range(nodes_count+1)]
+bfs(start_node)
+
+
+
+
+def dfs_iterative_old(root: int):
+    global graph, visiteds
+    stk = [root]
+    
+    while stk:
+        node = stk.pop()
+        
+        if not visiteds[node]:
+            visiteds[node] = True
+            print(node, end=" ")
+
+            # 스택에 넣을 때는 "역순으로" 추가
+            for neighbor in sorted(graph[node], reverse=True):
+                stk.append(neighbor)
+
+def bfs_old(root: int):
+    global graph, visiteds
+    dq = deque([root])
+    visiteds[root] = True
+
+    while dq:
+        node = dq.popleft()
+        print(node, end=" ")
+        
+        for neighbor in sorted(graph[node]):
+            if not visiteds[neighbor]:
+                visiteds[neighbor] = True
+                dq.append(neighbor)
