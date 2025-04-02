@@ -4,31 +4,10 @@ from collections import deque
 # sys.setrecursionlimit(10**9)
 input=sys.stdin.readline
 
-def bfs_prim(root:int): 
-    global graph, visiteds # 그래프는 (가중치, 출발노드, 도착노드)의 리스트로.
+def bfs_prim(): 
+    global graph, visiteds, start_n # 그래프는 (가중치, 출발노드, 도착노드)의 리스트로.
     
-    hq = [(0, root)] # BFS용 힙 큐는 (가중치, 출발노드)의 리스트로.
-    result = 0
-
-    while hq:
-        cost, curr = heapq.heappop(hq)
-        
-        if visiteds[curr]:
-            continue
-
-        visiteds[curr]=True
-        result += cost
-
-        for c, nei in graph[curr]: # cost, neighbor
-            if not visiteds[nei]:
-                heapq.heappush(hq, (c, nei))
-
-    return result
-
-def bfs_prim2(root:int): 
-    global graph, visiteds # 그래프는 (가중치, 출발노드, 도착노드)의 리스트로.
-    
-    hq = [(0, root)] # BFS용 힙 큐는 (가중치, 출발노드)의 리스트로.
+    hq = [(0, start_n)] # BFS용 힙 큐는 (가중치, 출발노드)의 리스트로.
     result = 0
 
     while hq:
@@ -52,6 +31,7 @@ def bfs_prim2(root:int):
 nodes_n, edges_e = map(int,input().split())
 graph = [[] for _ in range(nodes_n+1)]
 visiteds = [False]*(nodes_n+1)
+start_n = 1
 
 for _ in range(edges_e):
     src, dst, cost = map(int, input().split())
@@ -59,10 +39,30 @@ for _ in range(edges_e):
     graph[dst].append((cost, src)) # dst에 (가중치, src노드)
 
 # 계산 & 출력
-print(bfs_prim(1))
+print(bfs_prim())
 # print(bfskruskal())
 
 
+def bfs_prim_old(root:int): 
+    global graph, visiteds # 그래프는 (가중치, 출발노드, 도착노드)의 리스트로.
+    
+    hq = [(0, root)] # BFS용 힙 큐는 (가중치, 출발노드)의 리스트로.
+    result = 0
+
+    while hq:
+        cost, curr = heapq.heappop(hq)
+        
+        if visiteds[curr]:
+            continue
+
+        visiteds[curr]=True
+        result += cost
+
+        for c, nei in graph[curr]: # cost, neighbor
+            if not visiteds[nei]:
+                heapq.heappush(hq, (c, nei))
+
+    return result
     
 def find(parent, x):
     if parent[x] != x:

@@ -28,7 +28,7 @@ N개의 도시가 있다. 그리고 한 도시에서 출발하여 다른 도시�
 4
 """
 def dijk():
-    global n,m,graph,start_n,end_n
+    global graph,start_n,end_n
 
     hq = [(0,start_n)]
     dists = [math.inf for _ in range(len(graph))]

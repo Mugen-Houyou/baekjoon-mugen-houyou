@@ -15,6 +15,7 @@ def dfs_recursive(root: int):
 def dfs_iterative(root: int):
     global graph, visiteds
     stk = [root]
+    result = []
     
     while stk:
         node = stk.pop()
@@ -23,7 +24,7 @@ def dfs_iterative(root: int):
             continue
 
         visiteds[node] = True
-        print(node, end=" ")
+        result.append(node)
 
         # 스택에 넣을 때는 "역순으로" 추가
         for neighbor in sorted(graph[node], reverse=True):
@@ -31,9 +32,12 @@ def dfs_iterative(root: int):
                 continue
             stk.append(neighbor)
 
+    return result
+
 def bfs(root: int):
     global graph, visiteds
     dq = deque([root])
+    result = []
     
     while dq:
         node = dq.popleft()
@@ -42,13 +46,15 @@ def bfs(root: int):
             continue
 
         visiteds[node] = True
-        print(node, end=" ")
+        result.append(node)
 
         # 이건 큐라 순서대로 추가.
         for neighbor in sorted(graph[node]):
             if visiteds[neighbor]: 
                 continue
             dq.append(neighbor)
+    
+    return result
 
 
 nodes_count, edges_count, start_node = map(int, input().split())
@@ -60,12 +66,9 @@ for _ in range(edges_count):
     graph[b].append(a) # 양방향으로 넣자.
 
 visiteds = [[] for _ in range(nodes_count+1)]
-dfs_iterative(start_node)
-print()
+print(*dfs_iterative(start_node))
 visiteds = [[] for _ in range(nodes_count+1)]
-bfs(start_node)
-
-
+print(*bfs(start_node))
 
 
 def dfs_iterative_old(root: int):

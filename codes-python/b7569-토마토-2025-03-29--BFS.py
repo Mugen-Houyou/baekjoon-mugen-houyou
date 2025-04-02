@@ -26,7 +26,7 @@ def bfs_tomato():
             nf, nr, nc = f+df, r+dr, c+dc
             if is_within_bounds(nf, nr, nc) and block[nf][nr][nc] == 0: # 이 조건에서 -1이랑 1은 알아서 걸러짐
                 block[nf][nr][nc] = 1
-                dq.append((nf, nr, nc, day + 1))
+                dq.append((nf, nr, nc, 1+day))
 
     return (-1 if any(0 in col
                         for row in block
