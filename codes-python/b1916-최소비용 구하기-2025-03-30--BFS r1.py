@@ -1,5 +1,4 @@
 import heapq
-import math
 import sys
 
 """
@@ -31,7 +30,7 @@ def dijk():
     global graph,start_n,end_n
 
     hq = [(0,start_n)]
-    dists = [math.inf for _ in range(len(graph))]
+    dists = [1<<31 for _ in range(len(graph))]
     dists[start_n] = 0
 
     while hq:

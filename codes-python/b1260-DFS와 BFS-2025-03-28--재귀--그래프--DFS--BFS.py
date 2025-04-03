@@ -8,9 +8,10 @@ def dfs_recursive(root: int):
     visiteds[root] = True
 
     for neighbor in sorted(graph[root]):
-        if not visiteds[neighbor]:
-            visiteds[neighbor] = True
-            dfs_recursive(neighbor)
+        if visiteds[neighbor]:
+            continue
+        visiteds[neighbor] = True
+        dfs_recursive(neighbor)
 
 def dfs_iterative(root: int):
     global graph, visiteds
@@ -33,6 +34,7 @@ def dfs_iterative(root: int):
             stk.append(neighbor)
 
     return result
+        
 
 def bfs(root: int):
     global graph, visiteds
@@ -57,6 +59,32 @@ def bfs(root: int):
     return result
 
 
+def bfs_with_level(root: int):
+    global graph, visiteds
+    dq = deque([root])
+    result = []
+    level = 0
+
+    while dq:
+        print("CURR. LEVEL:",level)
+        for _ in range(len(dq)):
+            node = dq.popleft()
+            
+            if visiteds[node]: 
+                continue
+
+            visiteds[node] = True
+            result.append(node)
+
+            # 이건 큐라 순서대로 추가.
+            for neighbor in sorted(graph[node]):
+                if visiteds[neighbor]: 
+                    continue
+                dq.append(neighbor)
+        level += 1
+    return result
+
+
 nodes_count, edges_count, start_node = map(int, input().split())
 graph = {i: [] for i in range(1, nodes_count + 1)} # 노드가 1,2,3,4,... 같은 식일 것이라고 가정
 
@@ -68,7 +96,7 @@ for _ in range(edges_count):
 visiteds = [[] for _ in range(nodes_count+1)]
 print(*dfs_iterative(start_node))
 visiteds = [[] for _ in range(nodes_count+1)]
-print(*bfs(start_node))
+print(*bfs_with_level(start_node))
 
 
 def dfs_iterative_old(root: int):

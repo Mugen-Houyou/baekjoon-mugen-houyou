@@ -39,8 +39,7 @@ for _ in range(edges_e):
     graph[dst].append((cost, src)) # dst에 (가중치, src노드)
 
 # 계산 & 출력
-print(bfs_prim())
-# print(bfskruskal())
+# print(bfs_prim())
 
 
 def bfs_prim_old(root:int): 
@@ -102,3 +101,5 @@ def kruskal(): # 가중치가 가장 낮은 간선부터 시작하므로 파라�
                 break
 
     return total_cost
+
+print(kruskal())
